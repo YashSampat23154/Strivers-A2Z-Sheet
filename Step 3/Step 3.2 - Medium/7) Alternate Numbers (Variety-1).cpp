@@ -1,5 +1,7 @@
 // https://www.codingninjas.com/studio/problems/alternate-numbers_6783445?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTab=0
 
+// In Variey-1, the number of positive and negative values are equal. 
+
 vector<int> alternateNumbers(vector<int>&a) {
     vector<int> ans(a.size()); 
     int positiveIndex = 0, negativeIndex = 1; 
