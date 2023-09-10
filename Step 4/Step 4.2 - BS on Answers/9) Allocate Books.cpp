@@ -1,6 +1,6 @@
 // https://www.codingninjas.com/studio/problems/allocate-books_1090540?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTab=0
 
-bool checkMinPages(vector<int>& arr, int minPages, int m){
+int checkMinPages(vector<int>& arr, int minPages){
     
     int totalChildren = 0; 
     int currPages = 0; 
@@ -13,31 +13,30 @@ bool checkMinPages(vector<int>& arr, int minPages, int m){
         }
     }
     if(currPages > 0) totalChildren++; 
-
-    if(totalChildren <= m)
-        return 1;
-    else 
-        return 0;
+    return totalChildren;
 }
 
 int findPages(vector<int>& arr, int n, int m) {
-
-    if(m > n) return -1; 
-
     int lower = *max_element(arr.begin(), arr.end());
     int higher = accumulate(arr.begin(), arr.end(), 0); 
+    int ans = -1; 
 
     while(lower <= higher){
 
         int mid = lower + (higher - lower)/2; 
-        int check = checkMinPages(arr, mid, m); 
+        int totalChildren = checkMinPages(arr, mid); 
 
-        if(check){
+        if(totalChildren <= m){
+            if(totalChildren == m)
+                ans = mid; 
             higher = mid - 1; 
         }
-        else
-            lower = mid + 1; 
-           
+        else{
+            ans = max(ans, mid);   
+            lower = mid + 1;
+        }
+             
     }
-    return lower;
+    if(ans == -1 && n > m) return *max_element(arr.begin(), arr.end()); 
+    return ans;
 }
